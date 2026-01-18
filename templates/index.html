@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block container %}
+<div class="col mt-3">
+    <div class="image-container">
+        <img src="../static/images/hawai).jpg" alt="Photo"  class="front-img">
+
+        <div class="text-overlay">WANDER</div>
+        <div class="text-overlay-mini">Discover Breathtaking destinations across the world with curated tours,local insights, and hassle-free planning all in one platform</div>
+        <button type="button" class="btn-white">Plan your Trip</button>
+        <a href="#destinations">
+        <button type="button" class="btn-second">Explore Destinations</button>
+        </a>
+    </div>
+</div>
+    <div class="my-5">
+    <div class="row align-items-center">
+
+
+        <div class="col-md-6 align-self-start">
+            <h2 class="why-title" style="font-size: 2.7rem; font-weight: bold; color: #383530; top:10%; margin-left: 15px;">Why Thousands of Travelers Choose W.travel</h2>
+            <p class="why-text" style=" color: #181613; margin-top: 15px; font-size: 1.5rem; margin-left: 17px;"><b>
+                From pristine beaches to cultural hotspots,<br> we make exploring the world easier, safer, and more exciting.<br>
+                Our expert-crafted itineraries, local insights, and 24/7 support ensure your journey is unforgettable.</b>
+            </p>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="row g-3">
+
+                <div class="col-12">
+                    <div class="why-card" style="background: #402D20;
+                            color: white;
+                            padding: 20px;
+                            border-radius: 15px;">
+                        <h5>Local Expertise</h5>
+                        <p>Our guides provide insider knowledge to help you discover hidden gems.</p>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="why-card" style="background: #4F3727;
+                        color: white;
+                        padding: 20px;
+                        border-radius: 15px;">
+                        <h5>All-in-One Booking</h5>
+                        <p>Book flights, hotels, and tours in one easy place.</p>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="why-card" style="background: #583D2B;
+                        color: white;
+                        padding: 20px;
+                        border-radius: 15px;">
+                        <h5>24/7 Support</h5>
+                        <p>We’re here for you before, during, and after your trip.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    <div class="row destination mt-5">
+        <p id="destinations" style="font-size: 4vw !important; font-weight: bold; padding: 10px 20px;
+    text-align: center;
+    color: #383530;
+    font-family: 'vogue', sans-serif;
+    margin-bottom: 2rem;">All Destinations</p>
+    </div>
+    <div class="row  ">
+    {% for destination in destinations %}
+    <div class="col">
+        <div class="card h-60" style=" width: 16rem;">
+
+            <img src="{{ destination.image }}" alt="destination">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-text">{{ destination['name'] }}</h5>
+                <p class="card-title">{{ destination['price'] }}₾ </p>
+               <a href="/detailed-destination/{{ destination.id }}" class="btn">ნახვა</a>
+                {% if current_user.role == "Admin" %}
+                    <a href="/delete_destination/{{ destination['id'] }}" class="btn btn-outline-danger">წაშლა</a>
+                     <a href="/edit_destination/{{ destination.id }}" class="btn btn-outline-info">რედაქტირება</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+        </div>
+
+
+
+
+
+
+</div>
+{% endblock %}

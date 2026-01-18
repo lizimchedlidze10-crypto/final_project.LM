@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} Detailed Destination Page {% endblock %}
+
+{% block container %}
+<div class="row mt-2">
+    <div class="col-6 offset-3 my-2">
+
+        <h2>Price: {{ destination.price }}</h2>
+        <h3>Name: {{ destination.name }}</h3>
+
+
+        <img src="{{ destination.image }}" class="img-fluid my-3">
+
+        <hr>
+
+        <div class="row mt-2">
+            {% for comment in comments %}
+                <p>{{ comment.text }}</p>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

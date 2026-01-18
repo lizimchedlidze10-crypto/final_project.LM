@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} detailed product Page {% endblock %}
+
+{% block container %}
+<div class="row mt-2">
+    <div class="col-6 offset-3 my-2">
+        <div class="row mt-2">
+           <h2>Price: {{ product['price'] }}</h2>
+        </div>
+        <div class="row mt-2">
+           <h3>Name: {{ product['name'] }}</h3>
+        </div>
+        <div class="row mt-2">
+            <img src="/static/images/{{ product['image'] }}">
+        </div>
+        <hr>
+        <div class="row mt-2">
+            {% for comment in comments %}
+                <p>{{ comment.text }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

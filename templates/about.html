@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %} About Page {% endblock %}
+
+{% block container %}
+<div class="col mt-5">
+<p class="about-title">ABOUT US</p>
+</div>
+
+    <div class="col">
+        <div class="image-container">
+            <img src="../static/images/abt.jpg" class="img-fluid" alt="...">
+        </div>
+    </div>
+
+
+        <p class="about-text" style="font-weight: bold; font-family:butler; font-size: 1.3rem; margin: 50px;">Welcome to Wander, your ultimate travel companion and guide to exploring the world with ease and excitement.<br>
+            Our mission is simple: to help travelers discover breathtaking destinations, experience local cultures, and create unforgettable
+            memories without the stress of planning.<br>At Wander, we believe that travel is more than just visiting new places — it’s about
+            immersing yourself in unique experiences, connecting with people, and seeing the world from a fresh perspective.<br> Whether you’re
+            dreaming of sun-soaked beaches, towering mountains, vibrant cities, or hidden gems off the beaten path, we provide curated
+            recommendations, insider tips, and personalized itineraries to make your journey seamless and inspiring.<br><br>
+            Our team of travel enthusiasts carefully researches each destination to ensure you get authentic insights, practical
+            guidance, and exclusive experiences that most tourists miss. From accommodations and activities to local
+            cuisine and cultural events, we cover every detail to help you plan smarter, travel safer, and enjoy more.<br><br>
+            </p>
+
+
+    <div class="col ">
+        <video autoplay loop muted id="myVideo" controls style="width: 100%; height: auto" class="rounded-5" >
+            <source src="/static/vid/about.MP4"  type="video/MP4">
+        </video>
+    </div>
+    <p class="about-text" style="font-weight: bold; font-family:butler; font-size: 1.7rem; margin: 50px;">Wander is more than just a travel guide — it’s a community of curious explorers who share their stories, advice,
+            and inspiration. Join us on this adventure, and let us help you turn your travel dreams into reality. Your
+            next unforgettable journey starts here.</p>
+{% endblock %}
+
+
+

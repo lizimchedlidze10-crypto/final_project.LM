@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Register Page {% endblock %}
+
+{% block container %}
+<div class="row mt-2">
+    <form class="col-6 offset-3 my-2" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        {% for errors in form.errors.values() %}
+        <div class="alert alert-danger">
+            {% for error in errors %}
+            * {{ error }}<br>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <div class="row mt-2">
+            {{ form.username(class="form-control", placeholder=form.username.label.text ) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.email(class="form-control", placeholder=form.email.label.text ) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.password(class="form-control", placeholder=form.password.label.text) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.repeat_password(class="form-control", placeholder=form.repeat_password.label.text) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.submit(class="btn btn-primary")}}
+        </div>
+        <div class="row mt-2">
+            <p>already have an account? <a class="text-primary" href="/login">Log In</a></p>
+        </div>
+    </form>
+</div>
+{% endblock %}
