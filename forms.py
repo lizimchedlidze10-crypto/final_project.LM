@@ -3,7 +3,6 @@ from flask_wtf.file import FileAllowed
 from wtforms import StringField, PasswordField, RadioField,FloatField, DateField, SelectField, SubmitField, FileField
 from wtforms.validators import DataRequired, length, equal_to, Email
 
-from choices import countries, styles
 
 
 class RegisterForm(FlaskForm):
@@ -38,10 +37,7 @@ class SearchForm(FlaskForm):
     submit = SubmitField("Search")
 
 class DestinationForm(FlaskForm):
-    # image = FileField("destination image", validators=[ FileAllowed(["png", "jpg", "jpeg"]),DataRequired()])
-    # name = StringField("destination name", validators=[DataRequired()])
-    # price = FloatField("destination price", validators=[DataRequired()])
-    # submit = SubmitField("Add Destination")
+
     image = FileField(
         "destination image",
         validators=[FileAllowed(["png", "jpg", "jpeg"])]
