@@ -20,19 +20,41 @@ def home():
 
 
 
+from werkzeug.security import generate_password_hash
+
 @app.route("/register", methods=["POST", "GET"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        new_user = User(username=form.username.data, password=form.password.data, email=form.email.data)
 
-        db.session.add(new_user)
-        db.session.commit()
+        existing_user = User.query.filter(
+            (User.username == form.username.data) | (User.email == form.email.data)
+        ).first()
+        if existing_user:
+            flash("Username or email already exists!", "danger")
+            return render_template("register.html", form=form)
 
-        flash("თქვენ წარმატებით დარეგისტრირდით,  გაიარეთ ავტორიზაცია", "success")
-        return redirect("/login")
+
+        hashed_password = generate_password_hash(form.password.data)
+
+        new_user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password=hashed_password
+        )
+
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            flash("თქვენ წარმატებით დარეგისტრირდით,  გაიარეთ ავტორიზაცია", "success")
+            return redirect("/login")
+        except Exception as e:
+            db.session.rollback()
+            flash(f"შეცდომა ბაზაში: {str(e)}", "danger")
+            return render_template("register.html", form=form)
 
     return render_template("register.html", form=form)
+
 
 
 @app.route("/login", methods=["POST", "GET"])
