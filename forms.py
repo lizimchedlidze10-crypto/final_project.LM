@@ -47,5 +47,3 @@ class DestinationForm(FlaskForm):
     submit = SubmitField("Save Destination")
 
 
-
-
