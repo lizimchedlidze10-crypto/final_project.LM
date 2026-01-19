@@ -21,68 +21,37 @@ def home():
 
 
 from werkzeug.security import generate_password_hash
-
 @app.route("/register", methods=["POST", "GET"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        new_user = User(username=form.username.data, password=form.password.data, email=form.email.data)
 
-        existing_user = User.query.filter(
-            (User.username == form.username.data) | (User.email == form.email.data)
-        ).first()
-        if existing_user:
-            flash("Username or email already exists!", "danger")
-            return render_template("register.html", form=form)
+        db.session.add(new_user)
+        db.session.commit()
 
-
-        hashed_password = generate_password_hash(form.password.data)
-
-        new_user = User(
-            username=form.username.data,
-            email=form.email.data,
-            password=hashed_password
-        )
-
-        try:
-            db.session.add(new_user)
-            db.session.commit()
-            flash("თქვენ წარმატებით დარეგისტრირდით,  გაიარეთ ავტორიზაცია", "success")
-            return redirect("/login")
-        except Exception as e:
-            db.session.rollback()
-            flash(f"შეცდომა ბაზაში: {str(e)}", "danger")
-            return render_template("register.html", form=form)
+        flash("თქვენ წარმატებით დარეგისტრირდით,  გაიარეთ ავტორიზაცია", "success")
+        return redirect("/login")
 
     return render_template("register.html", form=form)
-
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
     form = LoginForm()
-
     if form.validate_on_submit():
-        user = None
-        email_input = form.email.data.strip()
-        username_input = form.username.data.strip()
-
-        if email_input:
-            user = User.query.filter_by(email=email_input).first()
-        elif username_input:
-            user = User.query.filter_by(username=username_input).first()
-
-        if not user:
-            flash("მოხდა შეცდომა: მომხმარებელი ვერ მოიძებნა", "danger")
-            return render_template("login.html", form=form)
-
-        if user.check_password(form.password.data):
+        user = User.query.filter(form.username.data == User.username).first()
+        if user and user.check_password(form.password.data):
             login_user(user)
+
             flash("თქვენ წარმატებით გაიარეთ ავტორიზაცია", "success")
             return redirect("/")
         else:
-            flash("მოხდა შეცდომა: პაროლი არასწორია", "danger")
+            flash("მოხდა შეცდომა", "danger")
+
 
     return render_template("login.html", form=form)
+
 
 
 @app.route("/logout")
